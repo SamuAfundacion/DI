@@ -6,6 +6,12 @@
 
 Este proyecto proporciona una API REST para la gestión de productos,tiendas, clientes y tickets. Permite realizar operaciones CRUDestas, así como filtrado, paginación y modificaciones específicas.
 
+## Tecnologías utilizadas ✔️
+
+- Java 8
+- SpringBoot
+- PostgreSQL
+
 ---
 
 ## 📑 Índice
@@ -29,6 +35,17 @@ Este proyecto proporciona una API REST para la gestión de productos,tiendas, cl
   - [Paso 3](#paso-3-1)
   - [Paso 4](#paso-4)
 
+## 📊 Esquema del Proyecto
+
+```mermaid
+flowchart TD
+    A[Mic-Prices] --> B[Gestión de]
+    B --> B1[Productos]
+    B --> B2[Tienda]
+    B --> B3[Cliente]
+    B --> B4[Compra]
+
+```
 
 ## Funcionalidades ##
 
