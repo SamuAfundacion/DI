@@ -1,8 +1,34 @@
 # 🛒 MIC-PRICES - Gestión de Productos y Tiendas
+![Badge en Desarollo](https://img.shields.io/badge/STATUS-EN%20DESAROLLO-green)
+
+<p align="center"><img width="250" height="216" alt="Imagen portada"  src="https://github.com/user-attachments/assets/a1680cf7-c229-4f4e-a21b-d4d5e9628122" />
+</p>
 
 Este proyecto proporciona una API REST para la gestión de productos,tiendas, clientes y tickets. Permite realizar operaciones CRUDestas, así como filtrado, paginación y modificaciones específicas.
 
 ---
+
+## 📑 Índice
+- [Funcionalidades](#funcionalidades)
+  - [Productos](#-productos)
+  - [Tienda](#-tienda)
+  - [Cliente](#-cliente)
+  - [Compra](#-compra)
+- [ENDPOINTS](#endpoints)
+  - [Productos](#productos)
+  - [Tienda](#tienda-1)
+  - [Cliente](#cliente)
+  - [Compra](#compra)
+- [Como lanzar el proyecto](#como-lanzar-el-proyecto)
+  - [Paso 1](#paso-1)
+  - [Paso 2](#paso-2)
+  - [Paso 3](#paso-3)
+- [Preparación para los test de integración](#preparacion-para-los-test-de-integracion)
+  - [Paso 1](#paso-1-1)
+  - [Paso 2](#paso-2-1)
+  - [Paso 3](#paso-3-1)
+  - [Paso 4](#paso-4)
+
 
 ## Funcionalidades ##
 
