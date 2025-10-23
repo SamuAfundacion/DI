@@ -1,7 +1,7 @@
 import tkinter as tk
 
 root = tk.Tk()
-root.title("Ejercicio 6 - Listbox")
+root.title("Ejercicio Listbox")
 root.geometry("300x250")
 
 label_info = tk.Label(root, text="Selecciona una fruta:")

@@ -1,7 +1,7 @@
 import tkinter as tk
 
 root = tk.Tk()
-root.title("Ejercicio 7 - Canvas (con límites)")
+root.title("Ejercicio 7")
 root.geometry("400x450")
 
 canvas = tk.Canvas(root, width=300, height=200, bg="white", relief="solid", borderwidth=1)
