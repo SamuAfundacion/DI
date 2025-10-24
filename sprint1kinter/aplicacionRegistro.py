@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import messagebox
 
 root = tk.Tk()
 root.title("Ejercicio Registro")
@@ -90,10 +91,27 @@ listbox.config(yscrollcommand=scroll.set)
 scroll.config(command=listbox.yview)
 
 
+def salir_app():
+    root.quit()
 
-boton_salir = tk.Button(frame,text="Salir")
+
+boton_salir = tk.Button(frame,text="Salir",command=salir_app)
 boton_salir.pack(pady=10)
 
+# ====== Menú principal ======
+def guardar_lista():
+    messagebox.showinfo("Guardar Lista", "La lista de usuarios se ha guardado correctamente.")
 
+def cargar_lista():
+    messagebox.showinfo("Cargar Lista", "La lista de usuarios se ha cargado correctamente.")
+
+menubar = tk.Menu(root)
+menu_archivo = tk.Menu(menubar, tearoff=0)
+menu_archivo.add_command(label="Guardar Lista", command=guardar_lista)
+menu_archivo.add_command(label="Cargar Lista", command=cargar_lista)
+
+
+menubar.add_cascade(label="Opciones", menu=menu_archivo)
+root.config(menu=menubar)
 
 root.mainloop()
