@@ -1,4 +1,4 @@
-from sprint0python import operaciones
+from operaciones import suma, resta, multiplicacion, division
 
 def calculadora():
     while True:
@@ -6,50 +6,48 @@ def calculadora():
             num1 = float(input("Introduce el primer número: "))
             num2 = float(input("Introduce el segundo número: "))
         except ValueError:
-            print("Debes introducir números válidos.")
+            print("Introduce números válidos.")
             continue
 
+
         while True:
-            print("=" * 40)
-            print("\nEscoge una operación")
+            print("\nSelecciona una operación:")
             print("1. Suma")
             print("2. Resta")
             print("3. Multiplicación")
             print("4. División")
-            print("5. Salir")
-            print("=" * 40)
 
             try:
-                opcion = int(input("Elige la operación (1/2/3/4/5): "))
+                opcion = int(input("Elige la operación (1/2/3/4): "))
             except ValueError:
-                print("Debes introducir un número del 1 al 5.")
+                print("Introduce un número del 1 al 4.")
                 continue
 
             if opcion == 1:
-                resultado = operaciones.suma(num1, num2)
+                resultado = suma(num1, num2)
             elif opcion == 2:
-                resultado = operaciones.resta(num1, num2)
+                resultado = resta(num1, num2)
             elif opcion == 3:
-                resultado = operaciones.multiplicacion(num1, num2)
+                resultado = multiplicacion(num1, num2)
             elif opcion == 4:
-                resultado = operaciones.division(num1, num2)
-            elif opcion == 5:
-                break
+                resultado = division(num1, num2)
             else:
                 print("Opción no válida.")
                 continue
 
-            print(f"\n -- El resultado es: {resultado}\n")
+            print(f"\nEl resultado es: {resultado}")
+            break
+
 
         while True:
-            seguir = input("\n¿Quieres introducir nuevos números? (S/N): ").strip().lower()
+            seguir = input("\n¿Quieres seguir operando? (S/N): ").strip().lower()
             if seguir in ("s", "n"):
                 break
             else:
-                print("Introduce 'S' o 'N'.")
+                print("Por favor, introduce 'S' o 'N'.")
 
         if seguir == "n":
-            print("Hasta pronto!")
+            print("\nHasta pronto! :)")
             break
 
 
