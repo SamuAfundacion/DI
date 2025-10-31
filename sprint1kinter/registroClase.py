@@ -5,7 +5,7 @@ class RegistroApp:
     def __init__(self,root):
         self.root = root
         self.root.title("Ejercicio 14")
-        self.root.geometry("400x400")
+        self.root.geometry("400x700")
 
         self.frame = tk.Frame(root)
         self.frame.pack(expand=True)

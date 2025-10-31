@@ -3,7 +3,7 @@ from tkinter import messagebox
 
 root = tk.Tk()
 root.title("Ejercicio Registro")
-root.geometry("300x450")
+root.geometry("300x750")
 
 frame = tk.Frame(root)
 frame.pack(expand=True)
