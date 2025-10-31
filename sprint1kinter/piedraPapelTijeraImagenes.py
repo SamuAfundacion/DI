@@ -6,6 +6,17 @@ root.title("Piedra, Papel o Tijera")
 root.geometry("800x700")
 root.config(bg="#f0f0f0")
 
+# Salir
+menu_bar = tk.Menu(root)
+root.config(menu=menu_bar)
+
+
+menu_archivo = tk.Menu(menu_bar, tearoff=0)
+menu_archivo.add_command(label="Salir", command=root.destroy)
+menu_bar.add_cascade(label="Salir", menu=menu_archivo)
+
+
+
 root.grid_columnconfigure(0, weight=1)
 root.grid_columnconfigure(1, weight=1)
 root.grid_rowconfigure(0, weight=1)
@@ -50,7 +61,7 @@ etiqueta_contador_jugador.pack()
 etiqueta_contador_maquina = tk.Label(frame_resultado, text="Partidas ganadas máquina: 0", font=("Arial", 12, "bold"), bg="#e8fce8")
 etiqueta_contador_maquina.pack()
 
-# --- FRAME CONTADOR DE PARTIDAS GANADAS ---
+#  FRAME CONTADOR DE PARTIDAS GANADAS
 frame_total = tk.Frame(root, borderwidth=2, relief="ridge", padx=10, pady=10, bg="#f5f5dc")
 frame_total.grid(row=2, column=0, columnspan=2, padx=20, pady=10, sticky="nsew")
 
@@ -99,7 +110,7 @@ def actualizar_contador_total():
     etiqueta_partidas_jugador.config(text=f"Jugador: {contador_partidas_jugador}")
     etiqueta_partidas_maquina.config(text=f"Máquina: {contador_partidas_maquina}")
 
-# --- FUNCIÓN PARA DESACTIVAR LOS BOTONES ---
+#  DESACTIVAR LOS BOTONES
 def desactivar_botones():
     boton_piedra.config(state="disabled")
     boton_papel.config(state="disabled")
@@ -110,7 +121,7 @@ def desactivar_botones():
                                     bg="#d6f5d6", command=reinciar_partida)
     boton_nueva_partida.grid(row=2, column=2, pady=10, padx=5, sticky="e")
 
-# --- FUNCIÓN PARA REINICIAR LA PARTIDA ---
+# REINICIAR LA PARTIDA
 def reinciar_partida():
     global contador_jugador, contador_maquina
     contador_jugador = 0
@@ -135,7 +146,7 @@ def reiniciar_marcador_total():
     reinciar_partida()
     actualizar_contador_total()
 
-# BOTONES CON IMÁGENES
+# BOTONES
 boton_piedra = tk.Button(frame_jugador, text="Piedra", width=100, height=100, image=img_piedra,
                          compound="top", command=lambda: jugar_mostrar("piedra"))
 boton_papel = tk.Button(frame_jugador, text="Papel", width=100, height=100, image=img_papel,
@@ -147,7 +158,7 @@ boton_piedra.grid(row=1, column=0, padx=10, pady=10)
 boton_papel.grid(row=1, column=1, padx=10, pady=10)
 boton_tijera.grid(row=1, column=2, padx=10, pady=10)
 
-# REINICIAR MARCADOR ---
+# REINICIAR MARCADOR
 boton_reiniciar_marcador = tk.Button(frame_jugador, text="Reiniciar marcador", bg="#ffcccc", font=("Arial", 10, "bold"),
                                      command=reiniciar_marcador_total)
 boton_reiniciar_marcador.grid(row=2, column=0, columnspan=1, pady=10, padx=5, sticky="w")
