@@ -26,6 +26,16 @@ public class CatalogActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(CatalogActivity.this,DetailActivity.class);
                 startActivity(intent);
+
+            }
+        });
+        Button btnIrAMain = findViewById(R.id.btn_ir_a_main);
+
+        btnIrAMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CatalogActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
 

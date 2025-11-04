@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyCatalog">
         <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
             android:name=".CatalogActivity"
             android:exported="true">
             <intent-filter>
@@ -22,10 +25,7 @@
         </activity>
         <activity
             android:name=".DetailActivity"
-            android:exported="true"
-        />
-
-
+            android:exported="true" />
     </application>
 
 </manifest>
