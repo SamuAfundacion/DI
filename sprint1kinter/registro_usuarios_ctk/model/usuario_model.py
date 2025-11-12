@@ -11,7 +11,9 @@ class Usuario:
 class GestorUsuarios:
     def __init__(self):
         self._usuarios = []  # lista de Usuario
-
+        self._usuarios.append(Usuario("Ana", 25, "F", "avatar_ana.png"))
+        self._usuarios.append(Usuario("Luis", 30, "M", "avatar_luis.png"))
+        self._usuarios.append(Usuario("Alex", 22, "Otro", "avatar_alex.png"))
     def listar(self):
         return list(self._usuarios)
 
