@@ -1,5 +1,5 @@
 import random
-import tkinter as tk
+import tkinter as tk,PIL
 
 root = tk.Tk()
 root.title("Piedra, Papel o Tijera")

@@ -9,8 +9,6 @@ def nueva_ventana():
 def salir_app():
     root.quit()
 
-
-
 root= tk.Tk()
 root.title("Ejemplo de Menú")
 root.geometry("300x200")
