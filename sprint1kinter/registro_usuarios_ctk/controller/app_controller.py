@@ -18,7 +18,6 @@ class UsuarioController:
         self.view.abrir_toplevel(self)
 
     def registrar_usuario(self):
-        """Leer campos de la vista, crear usuario y actualizar lista"""
         nombre = self.view.entry_nombre.get()
         edad = int(self.view.edad_var.get())
         genero = self.view.genero_var.get()
@@ -37,7 +36,6 @@ class UsuarioController:
         self.view.top.destroy()
 
     def actualizar_lista_scroll(self):
-        # Limpiar scroll
         for widget in self.view.scroll_frame.winfo_children():
             widget.destroy()
 
