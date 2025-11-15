@@ -27,12 +27,10 @@ class UsuarioView:
         self.texto_busqueda = ctk.StringVar()
         self.busqueda = ctk.CTkEntry(self.frame_opciones, textvariable=self.texto_busqueda, width=200)
         self.busqueda.pack(side="left", padx=(0, 10))
-
         self.texto_busqueda.trace_add("write", self._on_busqueda)
 
         # Género (ComboBox)
         ctk.CTkLabel(self.frame_opciones, text="Género:").pack(side="left", padx=(5, 2))
-
         self.genero_filtro_var = tk.StringVar(value="todos")
         self.combo_genero = ctk.CTkComboBox(
             self.frame_opciones,
@@ -46,6 +44,8 @@ class UsuarioView:
         # Botones
         self.boton_eliminar = ctk.CTkButton(self.frame_opciones, text="Eliminar")
         self.boton_eliminar.pack(side="right", padx=5)
+        if self.controller:
+            self.boton_eliminar.configure(command=self.controller.eliminar_usuario)
 
         self.boton_agregar = ctk.CTkButton(self.frame_opciones, text="Añadir")
         self.boton_agregar.pack(side="right", padx=5)
@@ -57,35 +57,37 @@ class UsuarioView:
         # --- IZQUIERDA ---
         self.frame_izquierda = ctk.CTkFrame(self.frame_principal)
         self.frame_izquierda.pack(side="left", fill="both", expand=True, padx=(0, 10))
-
         self.scroll_frame = ctk.CTkScrollableFrame(self.frame_izquierda, label_text="Lista de Usuarios")
         self.scroll_frame.pack(padx=10, pady=10, fill="both", expand=True)
 
         # --- DERECHA ---
         self.frame_derecha = ctk.CTkFrame(self.frame_principal)
         self.frame_derecha.pack(side="right", fill="both", expand=True, padx=(10, 0))
-
         self.label_avatar = ctk.CTkLabel(self.frame_derecha, text="(avatar)", font=("Arial", 14))
         self.label_avatar.pack(pady=10)
-
         self.label_nombre = ctk.CTkLabel(self.frame_derecha, text="Nombre: -")
         self.label_nombre.pack(anchor="w", padx=20)
-
         self.label_edad = ctk.CTkLabel(self.frame_derecha, text="Edad: -")
         self.label_edad.pack(anchor="w", padx=20)
-
         self.label_genero = ctk.CTkLabel(self.frame_derecha, text="Género: -")
         self.label_genero.pack(anchor="w", padx=20)
 
         # ===== BARRA DE ESTADO =====
         self.frame_estado = ctk.CTkFrame(self.frame)
         self.frame_estado.pack(fill="x", pady=(10, 0))
-
         self.label_estado = ctk.CTkLabel(self.frame_estado, text="Ok", anchor="w")
         self.label_estado.pack(side="left", padx=10)
-
         self.label_recuento = ctk.CTkLabel(self.frame_estado, text="Usuarios visibles: 0", anchor="e")
         self.label_recuento.pack(side="right", padx=10)
+
+        self.boton_autoguardado = ctk.CTkButton(
+            self.frame_estado,
+            text="Auto-guardar (10s): OFF",
+            width=180,
+            height=25
+        )
+        self.boton_autoguardado.pack(side="left", padx=10)
+
     # ================= TOPLEVEL =================
     def abrir_toplevel(self):
         ventana = ctk.CTkToplevel(self.master)
@@ -137,9 +139,9 @@ class UsuarioView:
         if self.controller:
             self.controller.filtrar_genero(genero)
 
+    # ================= ESTADO =================
     def actualizar_estado(self, mensaje, temporizado=True):
         self.label_estado.configure(text=mensaje)
-
         if temporizado:
             self.label_estado.after(3000, lambda: self.label_estado.configure(text="Listo"))
 
