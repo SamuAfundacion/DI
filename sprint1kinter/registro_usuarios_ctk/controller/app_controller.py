@@ -2,6 +2,7 @@ import threading
 import time
 from registro_usuarios_ctk.model import GestorUsuarios, Usuario
 from registro_usuarios_ctk.view import UsuarioView
+
 import customtkinter as ctk
 
 class UsuarioController:
@@ -9,32 +10,19 @@ class UsuarioController:
         self.root = root
         self.model = GestorUsuarios()
         self.view = UsuarioView(root, controller=self)
-        self.usuario_seleccionado = None  # Para controlar la selección
-        self.auto_guardado_activo = False  # Estado del auto-guardado
+        self.usuario_seleccionado = None
+        self.auto_guardado_activo = False
 
-        # Botón agregar
         self.view.boton_agregar.configure(command=self.abrir_agregar_usuario)
-        # Botón eliminar
         self.view.boton_eliminar.configure(command=self.eliminar_usuario)
-
-        # Botón auto-guardado
         self.view.boton_autoguardado.configure(command=self.toggle_auto_guardado)
-
-        # Conectar menú archivo
         self.view.menu_archivo.entryconfig("Guardar Lista", command=self.grabar_lista)
         self.view.menu_archivo.entryconfig("Cargar Lista", command=self.cargar_lista)
 
-        # Mostrar lista inicial
         self.actualizar_lista_scroll()
-
-        # Asegurar parada de hilos al cerrar
         self.root.protocol("WM_DELETE_WINDOW", self.salir)
 
-        self.view.boton_autoguardado.configure(command=self.toggle_auto_guardado)
-
-    # ===========================
-    #   AUTO-GUARDADO
-    # ===========================
+    # --- AUTO-GUARDADO ---
     def toggle_auto_guardado(self):
         if not self.auto_guardado_activo:
             self.auto_guardado_activo = True
@@ -48,21 +36,16 @@ class UsuarioController:
 
     def hilo_autoguardado(self):
         while self.auto_guardado_activo:
-            time.sleep(10)  # cada 10 segundos
+            time.sleep(10)
             self.model.guardar_csv()
-            # Comunicamos UI de forma segura con after()
             self.root.after(0, lambda: self.view.actualizar_estado("Auto-guardado ejecutado", temporizado=True))
 
-    # ===========================
-    #   SALIR
-    # ===========================
+    # --- SALIR ---
     def salir(self):
-        self.auto_guardado_activo = False  # parar hilo
+        self.auto_guardado_activo = False
         self.root.destroy()
 
-    # ===========================
-    #   TOPLEVEL
-    # ===========================
+    # --- TOPLEVEL ---
     def abrir_agregar_usuario(self):
         self.view.abrir_toplevel()
 
@@ -80,17 +63,15 @@ class UsuarioController:
             return
 
         self.actualizar_lista_scroll()
+        self.view.actualizar_avatar(nuevo_usuario.avatar)
         self.view.top.destroy()
         self.view.actualizar_estado("Usuario añadido correctamente")
 
-    # ===========================
-    #   LISTA Y FILTROS
-    # ===========================
+    # --- LISTA Y FILTROS ---
     def actualizar_lista_scroll(self, usuarios=None):
         if usuarios is None:
             usuarios = self.model.listar()
 
-        # Limpiar scroll
         for widget in self.view.scroll_frame.winfo_children():
             widget.destroy()
 
@@ -102,7 +83,7 @@ class UsuarioController:
             self.view.label_nombre.configure(text=f"Nombre: {u.nombre}")
             self.view.label_edad.configure(text=f"Edad: {u.edad}")
             self.view.label_genero.configure(text=f"Género: {u.genero}")
-            self.view.label_avatar.configure(text=f"Avatar: {u.avatar}")
+            self.view.actualizar_avatar(u.avatar)
 
         for u in usuarios:
             label = ctk.CTkLabel(
@@ -128,9 +109,7 @@ class UsuarioController:
         self.actualizar_lista_scroll(usuarios)
         self.view.actualizar_estado("Filtro de género aplicado")
 
-    # ===========================
-    #   ELIMINAR USUARIO
-    # ===========================
+    # --- ELIMINAR ---
     def eliminar_usuario(self):
         if self.usuario_seleccionado is None:
             self.view.actualizar_estado("No hay usuario seleccionado")
@@ -142,14 +121,12 @@ class UsuarioController:
             self.view.label_nombre.configure(text="Nombre: -")
             self.view.label_edad.configure(text="Edad: -")
             self.view.label_genero.configure(text="Género: -")
-            self.view.label_avatar.configure(text="(avatar)")
+            self.view.actualizar_avatar("avatar1")
             self.actualizar_lista_scroll()
         except ValueError:
             self.view.actualizar_estado("Error al eliminar usuario")
 
-    # ===========================
-    #   ARCHIVOS
-    # ===========================
+    # --- ARCHIVOS ---
     def grabar_lista(self):
         self.model.guardar_csv()
         self.view.actualizar_estado("Lista guardada")

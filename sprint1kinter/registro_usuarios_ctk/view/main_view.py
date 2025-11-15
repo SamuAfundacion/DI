@@ -1,5 +1,8 @@
 import customtkinter as ctk
 import tkinter as tk
+from customtkinter import CTkImage
+from PIL import Image
+import os
 
 class UsuarioView:
     def __init__(self, master, controller=None):
@@ -63,8 +66,17 @@ class UsuarioView:
         # --- DERECHA ---
         self.frame_derecha = ctk.CTkFrame(self.frame_principal)
         self.frame_derecha.pack(side="right", fill="both", expand=True, padx=(10, 0))
-        self.label_avatar = ctk.CTkLabel(self.frame_derecha, text="(avatar)", font=("Arial", 14))
+
+        # Previsualización de avatar
+        self.ruta_assets = os.path.join(os.path.dirname(__file__), "..", "assets")
+        self.avatares_imagenes = {
+            "avatar1": CTkImage(Image.open(os.path.join(self.ruta_assets, "avatar1.png")), size=(64, 64)),
+            "avatar2": CTkImage(Image.open(os.path.join(self.ruta_assets, "avatar2.png")), size=(64, 64)),
+            "avatar3": CTkImage(Image.open(os.path.join(self.ruta_assets, "avatar3.png")), size=(64, 64)),
+        }
+        self.label_avatar = ctk.CTkLabel(self.frame_derecha, text="", image=self.avatares_imagenes["avatar1"])
         self.label_avatar.pack(pady=10)
+
         self.label_nombre = ctk.CTkLabel(self.frame_derecha, text="Nombre: -")
         self.label_nombre.pack(anchor="w", padx=20)
         self.label_edad = ctk.CTkLabel(self.frame_derecha, text="Edad: -")
@@ -111,15 +123,28 @@ class UsuarioView:
             number_of_steps=100, command=actualizar_label_edad
         ).pack(pady=10, padx=20, fill="x")
 
+        # Género
         self.genero_var = ctk.StringVar(value="M")
         ctk.CTkLabel(ventana, text="Género:").pack(pady=(10, 0))
         for g, valor in [("Masculino", "M"), ("Femenino", "F"), ("Otro", "Otro")]:
             ctk.CTkRadioButton(ventana, text=g, variable=self.genero_var, value=valor).pack(pady=2)
 
+        # Avatar
         self.avatar_var = ctk.StringVar(value="avatar1")
         ctk.CTkLabel(ventana, text="Avatar:").pack(pady=(10, 0))
+
+        # Previsualización avatar en Toplevel
+        self.label_avatar_top = ctk.CTkLabel(ventana, text="", image=self.avatares_imagenes[self.avatar_var.get()])
+        self.label_avatar_top.pack(pady=5)
+
+        def actualizar_avatar_top():
+            self.label_avatar_top.configure(image=self.avatares_imagenes[self.avatar_var.get()])
+
         for g, valor in [("Avatar1", "avatar1"), ("Avatar2", "avatar2"), ("Avatar3", "avatar3")]:
-            ctk.CTkRadioButton(ventana, text=g, variable=self.avatar_var, value=valor).pack(pady=2)
+            ctk.CTkRadioButton(
+                ventana, text=g, variable=self.avatar_var, value=valor,
+                command=actualizar_avatar_top
+            ).pack(pady=2)
 
         self.boton_registrar = ctk.CTkButton(
             ventana,
@@ -147,3 +172,8 @@ class UsuarioView:
 
     def actualizar_recuento(self, n):
         self.label_recuento.configure(text=f"Usuarios visibles: {n}")
+
+    # ================= AVATAR =================
+    def actualizar_avatar(self, avatar_key):
+        if avatar_key in self.avatares_imagenes:
+            self.label_avatar.configure(image=self.avatares_imagenes[avatar_key], text="")

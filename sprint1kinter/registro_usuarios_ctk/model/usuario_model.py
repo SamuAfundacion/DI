@@ -47,6 +47,5 @@ class GestorUsuarios:
         texto = texto.lower()
         return [u for u in self._usuarios if texto in u.nombre.lower()]
 
-    def buscar_genero(self,genero):
+    def buscar_genero(self, genero):
         return [u for u in self._usuarios if genero in u.genero]
-
