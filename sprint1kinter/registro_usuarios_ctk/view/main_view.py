@@ -104,7 +104,7 @@ class UsuarioView:
     def abrir_toplevel(self):
         ventana = ctk.CTkToplevel(self.master)
         ventana.title("Agregar Usuario")
-        ventana.geometry("400x400")
+        ventana.geometry("600x600")
         self.top = ventana
 
         ctk.CTkLabel(ventana, text="Nombre:").pack(pady=(10, 0))
